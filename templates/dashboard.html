@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weapon Detection Dashboard</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+        }
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .start { background: green; color: white; }
+        .stop { background: red; color: white; }
+
+        img {
+            margin-top: 20px;
+            width: 70%;
+            border: 3px solid red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🔫 Weapon Detection Dashboard</h1>
+
+<button class="start" onclick="startCamera()">▶ Start Live Webcam</button>
+<button class="stop" onclick="stopCamera()">⏹ Stop Webcam</button>
+
+<br>
+<img id="videoStream">
+
+<script>
+function startCamera() {
+    fetch("/start_camera")
+        .then(() => {
+            const img = document.getElementById("videoStream");
+            img.src = "/video_feed";
+            img.style.display = "block";
+        });
+}
+
+function stopCamera() {
+    fetch("/stop_camera")
+        .then(() => {
+            const img = document.getElementById("videoStream");
+            img.src = "";
+            img.style.display = "none";
+        });
+}
+</script>
+
+</body>
+</html>
